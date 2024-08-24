@@ -37,8 +37,28 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+const space = '**********';
+
 function decode(expr) {
-    // write your solution here
+    let string = '';
+    let char;
+    let charMorse;
+    for (let i = 0; i < expr.length; i+=10) {
+        charMorse = '';
+        char = expr.slice(i, i+10);
+        if (char === space) {
+            string += ' ';
+            continue;
+        }
+        char = char.slice(char.indexOf('1'));
+        for (let j = 0; j < char.length; j+=2) {
+            charMorse += char.slice(j, j+2) === '10' ? '.' : '-';
+        }
+        string += MORSE_TABLE[charMorse];
+    }
+
+    return string;
+    
 }
 
 module.exports = {
